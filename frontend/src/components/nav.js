@@ -12,7 +12,7 @@ class Nav extends Component {
                 </Link> 
                 <h1>The 9.5 Exchange</h1>
 
-                <ul className="navbar-nav align-items-center" style={{listStyleType: 'none'}}>
+                <ul className="navbar-nav align-items-center">
                     <li className="nav-item ml-5"><Link to='/' className="nav-link">Browse Items</Link></li>
                     <li className="nav-item ml-5"><Link to='/Login' className="nav-link">Login</Link></li>
                 </ul>

@@ -5,5 +5,5 @@ export const setItem = item => ({
 
 export const addToItems = item => ({
     type: 'ITEM_ADD_ITEMS',
-    items,
+    item,
 });

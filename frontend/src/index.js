@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
-import { createStore } from 'redux';
+import {createStore} from 'redux';
 import rootReducer from './redux/reducers/rootReducer.js';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 
 import './index.css';
