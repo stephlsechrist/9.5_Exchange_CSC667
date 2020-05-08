@@ -2,9 +2,9 @@ const INITIAL_STATE = {
     user: 'default',
     email: '',
     password: '',
-    isLoggedIn: false,
+    isLoggedIn: true,
     loadingState: 'init',
-    role: 'none', 
+    role: 'seller', 
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {

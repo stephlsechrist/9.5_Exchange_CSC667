@@ -2,21 +2,30 @@ var item1Test = {
     name: "Widget",
     description: "An exquistite widget",
     price: 10.99,
-    seller: "John",
+    seller: "default",
+    id: 123123,
+    numTimeSold: 2,
+    purchasers: [],
 }
 
 var item2Test = {
     name: "A shrubbery",
     description: "Who wouldn't want this?",
     price: 50,
-    seller: "Jill",
+    seller: "default",
+    id: 123124,
+    numTimeSold: 0,
+    purchasers: [],
 }
 
 var item3Test = {
     name: "Yo-Yo",
     description: "It's a yoyo",
     price: 220,
-    seller: "George",
+    seller: "default",
+    id: 123125,
+    numTimeSold: 3,
+    purchasers: ['default'],
 }
 
 const DEFAULT_STATE = {
@@ -25,8 +34,11 @@ const DEFAULT_STATE = {
         description: "",
         price: 0,
         seller: "",
+        id: 0,
+        numTimeSold: 0,
+        purchasers: [],
     },
-    items: [item1Test, item2Test, item3Test,item1Test, item2Test, item3Test],
+    items: [item1Test, item2Test, item3Test, item1Test, item2Test, item3Test],
 };
 
 const itemReducer = (state = DEFAULT_STATE, action) => {
