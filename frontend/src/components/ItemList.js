@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Item from './Item.js';
 import {connect} from 'react-redux';
-import {} from '../redux/actions/itemActions'
+import {} from '../redux/actions/itemActions';
 
 const ItemList = ({items}) => {
         return (

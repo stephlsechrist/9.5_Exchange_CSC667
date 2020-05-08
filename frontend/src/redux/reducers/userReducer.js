@@ -1,9 +1,10 @@
 const INITIAL_STATE = {
     user: 'default',
+    email: '',
     password: '',
     isLoggedIn: false,
     loadingState: 'init',
-    role: 'none',
+    role: 'none', 
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -13,10 +14,15 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state, 
                 user: action.user,
             }
-        case 'USER_SET_TYPE':
+        case 'USER_SET_ROLE':
             return {
                 ...state,
-                user: action.role,
+                role: action.role,
+            }
+        case 'USER_SET_EMAIL':
+            return {
+                ...state,
+                email: action.email,
             }
         case 'USER_SET_PASSWORD':
             return {
