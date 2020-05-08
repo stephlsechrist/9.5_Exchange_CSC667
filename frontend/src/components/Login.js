@@ -1,13 +1,48 @@
-import React, { Component } from 'react'
+import React from 'react';
+import {connect} from 'react-redux';
+import { setIsLoggedIn, setUser, setPassword,} from '../redux/actions/userActions';
 
-class Login extends Component {
-    render() {
-        return (
-            <div>
-                <h1>Login page here</h1>
-            </div>
-        )
+const Login = ({isLoggedIn, dispatch}) => {
+    const login = () => {
+        //query mongo with entered data, then 
+        //if user credentials are good
+        dispatch(setIsLoggedIn(true)); //temporary, check db with password and user value before doing this
+       
+        //else return jsx component with invalid message
     }
+
+    return (
+        <div className="card bg-light mt-4 col-3 offset-md-4">
+          
+            {!isLoggedIn && (
+                <div>
+                    <br /><p className="display-4 pb-3"><em>Login</em></p>
+                    <div>
+                        <label className="float-left">Username</label>
+                        <input type="text" className="form-control mb-2" id="username" placeholder="enter username"  onChange={e=> dispatch(setUser(e.target.value))}/>
+                    </div>
+                    <div className="pb-2">
+                        <label className="float-left">Password</label>
+                        <input type="password" className="form-control" id="password" placeholder="enter password"  onChange={e=> dispatch(setPassword(e.target.value))}/>
+                    </div>
+                    <div className="text-left">
+                        <button 
+                            id="submit" 
+                            onClick={login}
+                            className="btn btn-primary mb-2">
+                            Login
+                        </button>
+                    </div>
+                </div>    
+            )}
+        </div>
+    );
 }
 
-export default Login;
+const mapStateToProps = state => ({
+    user: state.userReducer.user,
+    password: state.userReducer.password,
+    isLoggedIn: state.userReducer.isLoggedIn,
+});
+
+export default connect(mapStateToProps)(Login);
