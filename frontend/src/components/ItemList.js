@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Item from './Item.js';
 import {connect} from 'react-redux';
 import {} from '../redux/actions/itemActions';
+import { setIsLoggedIn } from '../redux/actions/userActions.js';
 
-const ItemList = ({items}) => {
+const ItemList = ({items, isLoggedIn}) => {
         return (
             <div className="pt-5 container">
                 <p className="display-4">Currently posted on the Exchange</p><hr></hr><br />
@@ -18,7 +19,12 @@ const ItemList = ({items}) => {
                                         <h5 class="card-title">${item.price}</h5>
                                         <p class="card-text">{item.description}</p>
                                         <hr/>
-                                        <p class="card-text">Sold by: {item.seller}</p>
+                                        <p class="card-text">Seller: {item.seller}</p>
+                                        {isLoggedIn && (
+                                            <button className="btn btn-secondary mt-2 mb-2" onClick={() => {/*call some function triggering backend service here, update items state for that item*/}}>
+                                                 Purchase Item
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -32,6 +38,7 @@ const ItemList = ({items}) => {
 
 const mapStateToProps = state => ({
     items: state.itemReducer.items,
+    isLoggedIn: state.userReducer.isLoggedIn,
 });
 
 export default connect(mapStateToProps)(ItemList);

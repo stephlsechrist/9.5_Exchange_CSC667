@@ -54,7 +54,7 @@ const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
             <h5 className="mt-5">TEST: value of user is {user}</h5> 
             <h5 className="mt-5">TEST: value of password is {password}</h5> 
             <h5 className="mt-5">TEST: value of email is {email}</h5> 
-            <h5 className="mt-5">TEST: value of email is {role}</h5> 
+            <h5 className="mt-5">TEST: value of role is {role}</h5> 
         </div>
     )
 }
