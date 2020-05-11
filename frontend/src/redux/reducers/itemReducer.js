@@ -3,7 +3,6 @@ var item1Test = {
     description: "An exquistite widget",
     price: 10.99,
     seller: "default",
-    id: 123123,
     numTimeSold: 2,
     purchasers: [],
 }
@@ -13,7 +12,6 @@ var item2Test = {
     description: "Who wouldn't want this?",
     price: 50,
     seller: "default",
-    id: 123124,
     numTimeSold: 0,
     purchasers: [],
 }
@@ -23,7 +21,6 @@ var item3Test = {
     description: "It's a yoyo",
     price: 220,
     seller: "default",
-    id: 123125,
     numTimeSold: 3,
     purchasers: ['default'],
 }
@@ -34,7 +31,6 @@ const DEFAULT_STATE = {
         description: "",
         price: 0,
         seller: "",
-        id: 0,
         numTimeSold: 0,
         purchasers: [],
     },
