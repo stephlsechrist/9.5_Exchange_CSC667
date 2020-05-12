@@ -40,13 +40,33 @@ client.connect(err => {
       .then(doc => {
         console.log(doc);
         res.send({
-          valid: doc !== null && doc.password === req.query.password
+          valid: doc !== null && doc.password === req.query.password,
+          email: doc.email,
+          role: doc.role
         });
       })
       .catch(e => {
         console.log(e);
         res.send('Error', e);
       });
+  });
+
+  app.get('/api/register', (req, res) => {
+    if(!req.query.password || !req.query.email || !req.query.user || !req.query.role) {
+        res.send({
+          valid: false
+        });
+    }
+    //add check to see if email and user entered already exists
+    db.collection('users').insertOne({
+        user: req.query.user, 
+        email: req.query.email, 
+        password: req.query.password,
+        role: req.query.role
+    });
+    res.send({
+        valid: true
+    })
   });
 
   app.listen(port, () => console.log(`Example app listening on port ${port}!`));

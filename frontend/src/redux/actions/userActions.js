@@ -49,7 +49,6 @@ export const register = () => (dispatch, getState) => {
     const password = getState().userReducer.password;
     const email = getState().userReducer.email;
     const role = getState().userReducer.role;
-    console.log(email + " EMAIL ");
     const url = `http://localhost:4000/api/register?user=${user}&password=${password}&email=${email}&role=${role}`;
 
     fetch(url)
@@ -59,6 +58,10 @@ export const register = () => (dispatch, getState) => {
         console.log(data);
 
         if (data.valid) {
+          //dispatch(setEmail(data.email));
+          dispatch(setPassword(data.password));
+          dispatch(setUser(data.user));
+          dispatch(setRole(data.role));
           dispatch(setIsLoggedIn(true));
         }
       })
