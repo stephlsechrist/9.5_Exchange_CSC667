@@ -2,7 +2,7 @@ const INITIAL_STATE = {
     user: 'default',
     email: '',
     password: '',
-    isLoggedIn: true,
+    isLoggedIn: false,
     loadingState: 'init',
     role: 'seller', 
 };

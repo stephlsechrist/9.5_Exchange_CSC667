@@ -1,7 +1,11 @@
 const express = require('express');
 const { MongoClient, ObjectID } = require('mongodb');
+const cors = require('cors');
 const app = express();
+
 const port = 4000;
+
+app.use(cors());
 
 // Connection URL
 const url = 'mongodb://localhost:27017';
@@ -29,9 +33,9 @@ client.connect(err => {
         valid: false
       });
     }
-    db.collection('MyCollection')
+    db.collection('users')
       .findOne({
-        userId: req.query.userId
+        user: req.query.user
       })
       .then(doc => {
         console.log(doc);
