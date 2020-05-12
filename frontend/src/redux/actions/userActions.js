@@ -22,3 +22,22 @@ export const setLoadingState = loadingState => ({
     type: 'USER_SET_LOADING_STATE',
     loadingState,
 });
+
+export const login = () => (dispatch, getState) => {
+    console.log('Login function!')
+    const user = getState().userReducer.user;
+    const password = getState().userReducer.password;
+    const url = `http://localhost:4000/api/login?user=${user}&password=${password}`;
+
+    fetch(url)
+      //.then(res => console.log(res))
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        console.log("AFTER DATA");
+        if (data.valid){
+          dispatch(setIsLoggedIn(true));
+        }
+      })
+      .catch(console.log("CATCH REACHED"));
+};
