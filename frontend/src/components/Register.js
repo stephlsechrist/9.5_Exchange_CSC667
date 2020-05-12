@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setEmail, setIsLoggedIn, setUser, setPassword, setRole} from '../redux/actions/userActions';
+import {setEmail, setUser, setPassword, setRole, register} from '../redux/actions/userActions';
 
 const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
-    const register = () => {
+    const attemptRegister = () => {
         //query mongo with entered data, then 
         //if user credentials are good
-        dispatch(setIsLoggedIn(true)); //temporary, check db with password and user value before doing this
+        console.log("ATTEMPT REGISTER");
+        dispatch(register()); //temporary, check db with password and user value before doing this
 
         //else return jsx component with invalid message
     }
@@ -32,16 +33,16 @@ const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
                         </div>
                         <div>
                             <label className="float-left">Which kind of account are you creating?</label>
-                            <select className="float-left form-control md-3" value={user.role} onChange={e => dispatch(setRole(e.target.value))}>    
+                            <select className="float-left form-control md-3" onChange={e => dispatch(setRole(e.target.value))}>    
                                 <option selected disabled hidden>Choose type</option>
-                                <option value="Buyer">Buyer</option>
-                                <option value="Seller">Seller</option>
+                                <option value="buyer">Buyer</option>
+                                <option value="seller">Seller</option>
                             </select>
                         </div>
                         <div className="text-left">
                             <button    
-                                type="submit"  
-                                onClick={register}
+
+                                onClick={attemptRegister}
                                 className="btn btn-primary mb-2 mt-3">
                                 Submit
                             </button>

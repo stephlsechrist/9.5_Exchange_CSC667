@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { setIsLoggedIn, setUser, setPassword,} from '../redux/actions/userActions';
+import {setUser, setPassword, login} from '../redux/actions/userActions';
 
-const Login = ({isLoggedIn, dispatch}) => {
-    const login = () => {
+const Login = ({isLoggedIn, dispatch, email, role}) => {
+    const attemptLogin = () => {
         //query mongo with entered data, then 
         //if user credentials are good
-        dispatch(setIsLoggedIn(true)); //temporary, check db with password and user value before doing this
+        dispatch(login());
+        //dispatch(setIsLoggedIn(true)); //temporary, check db with password and user value before doing this
        
         //else return jsx component with invalid message
     }
@@ -28,19 +29,22 @@ const Login = ({isLoggedIn, dispatch}) => {
                     <div className="text-left">
                         <button 
                             id="submit" 
-                            onClick={login}
+                            onClick={attemptLogin}
                             className="btn btn-primary mb-2">
                             Login
                         </button>
                     </div>
                 </div>    
             )}
+            <h1>TEST: email is ({email}) <br/>and the role is ({role})</h1>
         </div>
     );
 }
 
 const mapStateToProps = state => ({
     user: state.userReducer.user,
+    email: state.userReducer.email,
+    role: state.userReducer.role,
     password: state.userReducer.password,
     isLoggedIn: state.userReducer.isLoggedIn,
 });
