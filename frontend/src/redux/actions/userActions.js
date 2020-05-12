@@ -43,3 +43,24 @@ export const login = () => (dispatch, getState) => {
       })
       .catch(console.log);
 };
+
+export const register = () => (dispatch, getState) => {
+    const user = getState().userReducer.user;
+    const password = getState().userReducer.password;
+    const email = getState().userReducer.email;
+    const role = getState().userReducer.role;
+    console.log(email + " EMAIL ");
+    const url = `http://localhost:4000/api/register?user=${user}&password=${password}&email=${email}&role=${role}`;
+
+    fetch(url)
+      //.then(res => console.log(res))
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+        if (data.valid) {
+          dispatch(setIsLoggedIn(true));
+        }
+      })
+      .catch(console.log);
+};

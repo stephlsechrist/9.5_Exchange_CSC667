@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { setIsLoggedIn, setUser, setPassword, login, setLoadingState} from '../redux/actions/userActions';
+import {setUser, setPassword, login} from '../redux/actions/userActions';
 
-const Login = ({isLoggedIn, dispatch, user, password, email, role}) => {
+const Login = ({isLoggedIn, dispatch, email, role}) => {
     const attemptLogin = () => {
         //query mongo with entered data, then 
         //if user credentials are good
