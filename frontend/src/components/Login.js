@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { setIsLoggedIn, setUser, setPassword, login} from '../redux/actions/userActions';
+import { setIsLoggedIn, setUser, setPassword, login, setLoadingState} from '../redux/actions/userActions';
 
-const Login = ({isLoggedIn, dispatch, user, password}) => {
+const Login = ({isLoggedIn, dispatch, user, password, email, role}) => {
     const attemptLogin = () => {
         //query mongo with entered data, then 
         //if user credentials are good
@@ -36,12 +36,15 @@ const Login = ({isLoggedIn, dispatch, user, password}) => {
                     </div>
                 </div>    
             )}
+            <h1>TEST: email is ({email}) <br/>and the role is ({role})</h1>
         </div>
     );
 }
 
 const mapStateToProps = state => ({
     user: state.userReducer.user,
+    email: state.userReducer.email,
+    role: state.userReducer.role,
     password: state.userReducer.password,
     isLoggedIn: state.userReducer.isLoggedIn,
 });

@@ -34,10 +34,12 @@ export const login = () => (dispatch, getState) => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        console.log("AFTER DATA");
-        if (data.valid){
+
+        if (data.valid) {
+          dispatch(setEmail(data.email));
+          dispatch(setRole(data.role));
           dispatch(setIsLoggedIn(true));
         }
       })
-      .catch(console.log("CATCH REACHED"));
+      .catch(console.log);
 };
