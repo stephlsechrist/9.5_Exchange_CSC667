@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {Route, Switch} from 'react-router-dom';
 
-import Nav from './components/nav.js';
+import Nav from './components/Nav.js';
 import ItemList from './components/ItemList.js'
 import Item from './components/Item.js';
 import Login from './components/Login.js';
@@ -11,7 +11,8 @@ import Cart from './components/Cart.js';
 import Register from './components/Register.js';
 import Buyer from './components/Buyer.js';
 import Seller from './components/Seller.js';
-import NotFound from './components/notFound.js';
+import NotFound from './components/NotFound.js';
+import Stats from './components/Stats.js';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/user/buyer" component={Buyer} />
                 <Route exact path="/user/seller" component={Seller} />
+                <Route exact path="/stats" component={Stats} />
                 <Route path="*" component={NotFound} />
             </Switch>
         </div>
