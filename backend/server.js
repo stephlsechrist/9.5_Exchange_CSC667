@@ -2,16 +2,19 @@ const express = require('express');
 const { MongoClient, ObjectID } = require('mongodb');
 const app = express();
 const port = 4000;
-var cors = require('cors');
-// Connection URL
-const url = 'mongodb://localhost:27017';
+const  cors = require('cors');
+const bodyParser = require('body-parser');
 
-var cors = require('cors');
+app.use(bodyParser.urlencoded({
+  extended: false,
+}));
+app.use(bodyParser.json());
 app.use(cors());
 
+// Connection URL
+const url = 'mongodb://localhost:27017';
 // Database Name
 const dbName = 'FinalProject95';
-
 // Create a new MongoClient
 const client = new MongoClient(url);
 
@@ -51,21 +54,30 @@ client.connect(err => {
       });
   });
 
-  app.get('/api/register', (req, res) => {
-    if(!req.query.password || !req.query.email || !req.query.user || !req.query.role) {
-        res.send({
-          valid: false
-        });
-    }
-    //add check to see if email and user entered already exists
-    db.collection('users').insertOne({
-        user: req.query.user, 
-        email: req.query.email, 
-        password: req.query.password,
-        role: req.query.role
+  app.post('/api/register', (req, res) => {
+    console.log(req.body);
+    var validEntry = (req.body.password !== '') && (req.body.email.includes('@')) && (req.body.user !== '') && (req.body.role !== '')
+    if(validEntry)
+      console.log("ALL VALUES ENTERED");
+
+    db.collection('users').find({$or: [ {user: req.body.user}, {email: req.body.email}]}).toArray((err, doc) => {     
+      if(doc.length > 0) {
+            validEntry = false;
+            console.log("User with same user and/or email already exists in DB.");
+        }
     });
+
+    if(validEntry) {
+      db.collection('users').insertOne({
+          user: req.body.user, 
+          email: req.body.email, 
+          password: req.body.password,
+          role: req.body.role
+      });
+    }
+
     res.send({
-        valid: true
+        valid: validEntry
     })
   });
 
