@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setEmail, setIsLoggedIn, setUser, setPassword, setRole} from '../redux/actions/userActions';
+import {setEmail, setUser, setPassword, setRole, register} from '../redux/actions/userActions';
 
 const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
-    const register = () => {
+    const attemptRegister = (event) => {
+        event.preventDefault();
         //query mongo with entered data, then 
         //if user credentials are good
-        dispatch(setIsLoggedIn(true)); //temporary, check db with password and user value before doing this
+        dispatch(register()); //temporary, check db with password and user value before doing this
 
         //else return jsx component with invalid message
     }
@@ -24,24 +25,24 @@ const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
                         </div>
                         <div>
                             <label className="float-left">Email</label>
-                            <input type="email" className="form-control mb-2" id="username" placeholder="enter your email"  onChange={e=> dispatch(setEmail(e.target.value))}/>
+                            <input name="email" type="email" className="form-control mb-2" id="username" placeholder="enter your email"  onChange={e=> dispatch(setEmail(e.target.value))}/>
                         </div>
                         <div className="pb-2">
                             <label className="float-left">Password</label>
-                            <input type="password" className="form-control" id="password" placeholder="select a password"  onChange={e=> dispatch(setPassword(e.target.value))}/>
+                            <input name="password" type="password" className="form-control" id="password" placeholder="select a password"  onChange={e=> dispatch(setPassword(e.target.value))}/>
                         </div>
                         <div>
                             <label className="float-left">Which kind of account are you creating?</label>
-                            <select className="float-left form-control md-3" value={user.role} onChange={e => dispatch(setRole(e.target.value))}>    
+                            <select className="float-left form-control md-3" onChange={e => dispatch(setRole(e.target.value))}>    
                                 <option selected disabled hidden>Choose type</option>
-                                <option value="Buyer">Buyer</option>
-                                <option value="Seller">Seller</option>
+                                <option value="buyer">Buyer</option>
+                                <option value="seller">Seller</option>
                             </select>
                         </div>
                         <div className="text-left">
                             <button    
-                                type="submit"  
-                                onClick={register}
+
+                                onClick={(e) => attemptRegister(e)}
                                 className="btn btn-primary mb-2 mt-3">
                                 Submit
                             </button>
@@ -51,10 +52,6 @@ const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
                     
                 )}
             </div> 
-            <h5 className="mt-5">TEST: value of user is {user}</h5> 
-            <h5 className="mt-5">TEST: value of password is {password}</h5> 
-            <h5 className="mt-5">TEST: value of email is {email}</h5> 
-            <h5 className="mt-5">TEST: value of role is {role}</h5> 
         </div>
     )
 }
