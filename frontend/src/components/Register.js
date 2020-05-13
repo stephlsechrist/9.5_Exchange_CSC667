@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {setEmail, setUser, setPassword, setRole, register} from '../redux/actions/userActions';
 
 const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
-    const attemptRegister = () => {
+    const attemptRegister = (event) => {
+        event.preventDefault();
         //query mongo with entered data, then 
         //if user credentials are good
-        console.log("ATTEMPT REGISTER");
         dispatch(register()); //temporary, check db with password and user value before doing this
 
         //else return jsx component with invalid message
@@ -25,11 +25,11 @@ const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
                         </div>
                         <div>
                             <label className="float-left">Email</label>
-                            <input type="email" className="form-control mb-2" id="username" placeholder="enter your email"  onChange={e=> dispatch(setEmail(e.target.value))}/>
+                            <input name="email" type="email" className="form-control mb-2" id="username" placeholder="enter your email"  onChange={e=> dispatch(setEmail(e.target.value))}/>
                         </div>
                         <div className="pb-2">
                             <label className="float-left">Password</label>
-                            <input type="password" className="form-control" id="password" placeholder="select a password"  onChange={e=> dispatch(setPassword(e.target.value))}/>
+                            <input name="password" type="password" className="form-control" id="password" placeholder="select a password"  onChange={e=> dispatch(setPassword(e.target.value))}/>
                         </div>
                         <div>
                             <label className="float-left">Which kind of account are you creating?</label>
@@ -42,7 +42,7 @@ const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
                         <div className="text-left">
                             <button    
 
-                                onClick={attemptRegister}
+                                onClick={(e) => attemptRegister(e)}
                                 className="btn btn-primary mb-2 mt-3">
                                 Submit
                             </button>
