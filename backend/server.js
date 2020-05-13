@@ -66,7 +66,7 @@ client.connect(err => {
             console.log("User with same user and/or email already exists in DB.");
         }
     });
-
+    
     if(validEntry) {
       db.collection('users').insertOne({
           user: req.body.user, 

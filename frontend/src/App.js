@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
 import {Route, Switch} from 'react-router-dom';
-
+import {connect} from 'react-redux';
 import Nav from './components/Nav.js';
 import ItemList from './components/ItemList.js'
 import Item from './components/Item.js';
 import Login from './components/Login.js';
-import ItemInfo from './components/ItemInfo.js'
 import Cart from './components/Cart.js';
 import Register from './components/Register.js';
 import Buyer from './components/Buyer.js';
@@ -14,15 +13,15 @@ import Seller from './components/Seller.js';
 import NotFound from './components/NotFound.js';
 import Stats from './components/Stats.js';
 
-function App() {
+const App = ({items}) => {
     return (
         <div className="App">
             <Nav />
             <Switch>
                 <Route exact path="/" component={ItemList} />
-                <Route path="/itemInfo" component={ItemInfo} />
                 <Route path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/item" component={() => <Item itemsState={items} />} />
                 <Route exact path="/user/buyer" component={Buyer} />
                 <Route exact path="/user/seller" component={Seller} />
                 <Route exact path="/stats" component={Stats} />
@@ -31,5 +30,7 @@ function App() {
         </div>
     );
 }
-
-export default App;
+const mapStateToProps = state => ({
+    items: state.itemReducer.items,
+});
+export default connect(mapStateToProps)(App);
