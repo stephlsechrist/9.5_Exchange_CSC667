@@ -36,7 +36,6 @@ const Login = ({isLoggedIn, dispatch, email, role}) => {
                     </div>
                 </div>    
             )}
-            <h1>TEST: email is ({email}) <br/>and the role is ({role})</h1>
         </div>
     );
 }
