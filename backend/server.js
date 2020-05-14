@@ -2,8 +2,10 @@ const express = require('express');
 const { MongoClient, ObjectID } = require('mongodb');
 const app = express();
 const port = 4000;
-const  cors = require('cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
+const redis = require('redis');
+const redisClient = redis.createClient();
 
 app.use(bodyParser.urlencoded({
   extended: false,
@@ -27,9 +29,9 @@ client.connect(err => {
 
   console.log('Connected successfully to server');
   const db = client.db(dbName);
-  
+
   app.get('/api/login', (req, res) => {
-    if(!req.query.password) {
+    if (!req.query.password) {
       res.send({
         valid: false
       });
@@ -52,12 +54,13 @@ client.connect(err => {
         console.log(e);
         res.send('Error', e);
       });
+    redisClient.incr('/api/login', (err, updatedValue) => { });
   });
 
   app.post('/api/register', (req, res) => {
     console.log(req.body);
     var validEntry = (req.body.password !== '') && (req.body.email.includes('@')) && (req.body.user !== '') && (req.body.role !== '')
-    if(validEntry)
+    if (validEntry)
       console.log("ALL VALUES ENTERED");
 
     db.collection('users').find({$or: [ {user: req.body.user}, {email: req.body.email}]}).toArray((err, doc) => {     
@@ -79,6 +82,7 @@ client.connect(err => {
       res.send({
         valid: validEntry
     })
+            redisClient.incr('/api/register', (err, updatedValue) => { });
     }
     })
     // .then(() => {
