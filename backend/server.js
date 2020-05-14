@@ -63,26 +63,42 @@ client.connect(err => {
     if (validEntry)
       console.log("ALL VALUES ENTERED");
 
-    db.collection('users').find({ $or: [{ user: req.body.user }, { email: req.body.email }] }).toArray((err, doc) => {
-      if (doc.length > 0) {
-        validEntry = false;
-        console.log("User with same user and/or email already exists in DB.");
-      }
-      redisClient.incr('/api/register', (err, updatedValue) => { });
-    });
+    db.collection('users').find({$or: [ {user: req.body.user}, {email: req.body.email}]}).toArray((err, doc) => {     
+      if(doc.length > 0) {
+            validEntry = false;
+            console.log("User with same user and/or email already exists in DB.");
+            res.send({
+              valid: validEntry
+          })
+        }
 
-    if (validEntry) {
-      db.collection('users').insertOne({
-        user: req.body.user,
-        email: req.body.email,
-        password: req.body.password,
-        role: req.body.role
+      else if(validEntry) {
+        db.collection('users').insertOne({
+          user: req.body.user, 
+          email: req.body.email, 
+          password: req.body.password,
+          role: req.body.role
       });
-    }
-
-    res.send({
-      valid: validEntry
+      res.send({
+        valid: validEntry
     })
+            redisClient.incr('/api/register', (err, updatedValue) => { });
+    }
+    })
+    // .then(() => {
+    //   if(validEntry) {
+    //     db.collection('users').insertOne({
+    //         user: req.body.user, 
+    //         email: req.body.email, 
+    //         password: req.body.password,
+    //         role: req.body.role
+    //     });
+    //   }
+    // });
+  
+
+
+
   });
 
   app.listen(port, () => console.log(`Example app listening on port ${port}!`));
