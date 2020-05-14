@@ -28,22 +28,6 @@ export const login = () => (dispatch, getState) => {
     const user = getState().userReducer.user;
     const password = getState().userReducer.password;
     const url = `http://localhost:4000/api/login?user=${user}&password=${password}`;
-<<<<<<< HEAD
-    console.log(url);
-
-    fetch(url)
-    //   .then(res => console.log(res))
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (data.valid){
-            dispatch(setIsLoggedIn(true));
-        }
-      })
-      .catch(console.log);
-  };
-  
-=======
 
     fetch(url)
       //.then(res => console.log(res))
@@ -86,4 +70,3 @@ export const register = () => (dispatch, getState) => {
     }
   }).catch(console.log);
 };
->>>>>>> 961936151dd82a393a28dde495ca7f5376271918

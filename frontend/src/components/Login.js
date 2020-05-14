@@ -1,23 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-<<<<<<< HEAD
-import { setIsLoggedIn, setUser, setPassword, login} from '../redux/actions/userActions';
-
-const Login = ({isLoggedIn, dispatch}) => {
-=======
 import {setUser, setPassword, login} from '../redux/actions/userActions';
 
 const Login = ({isLoggedIn, dispatch, email, role}) => {
->>>>>>> 961936151dd82a393a28dde495ca7f5376271918
     const attemptLogin = () => {
         //query mongo with entered data, then 
 
         //if user credentials are good
-<<<<<<< HEAD
-        dispatch(login())
-=======
         dispatch(login());
->>>>>>> 961936151dd82a393a28dde495ca7f5376271918
         //dispatch(setIsLoggedIn(true)); //temporary, check db with password and user value before doing this
        
         //else return jsx component with invalid message
