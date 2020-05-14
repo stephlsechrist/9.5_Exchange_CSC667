@@ -39,11 +39,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state, 
                 loadingState: action.loadingState,
             }
-        // case 'USER_SET_LOADING_STATE':
-        //     return {
-        //         ...state, 
-        //         loadingState: action.loadingState,
-        //     }   
+        case 'USER_SET_LOADING_STATE':
+            return {
+                ...state, 
+                loadingState: action.loadingState,
+            }   
         default:
             return state;
     }
