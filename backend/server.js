@@ -64,21 +64,37 @@ client.connect(err => {
       if(doc.length > 0) {
             validEntry = false;
             console.log("User with same user and/or email already exists in DB.");
+            res.send({
+              valid: validEntry
+          })
         }
-    });
-    
-    if(validEntry) {
-      db.collection('users').insertOne({
+
+      else if(validEntry) {
+        db.collection('users').insertOne({
           user: req.body.user, 
           email: req.body.email, 
           password: req.body.password,
           role: req.body.role
       });
-    }
-
-    res.send({
+      res.send({
         valid: validEntry
     })
+    }
+    })
+    // .then(() => {
+    //   if(validEntry) {
+    //     db.collection('users').insertOne({
+    //         user: req.body.user, 
+    //         email: req.body.email, 
+    //         password: req.body.password,
+    //         role: req.body.role
+    //     });
+    //   }
+    // });
+  
+
+
+
   });
 
   app.listen(port, () => console.log(`Example app listening on port ${port}!`));
