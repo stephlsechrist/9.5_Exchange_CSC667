@@ -5,6 +5,7 @@ import {setUser, setPassword, login} from '../redux/actions/userActions';
 const Login = ({isLoggedIn, dispatch, email, role}) => {
     const attemptLogin = () => {
         //query mongo with entered data, then 
+
         //if user credentials are good
         dispatch(login());
         //dispatch(setIsLoggedIn(true)); //temporary, check db with password and user value before doing this
