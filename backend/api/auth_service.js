@@ -32,11 +32,12 @@ client.connect(err => {
 
   app.get('/api/login', (req, res) => {
     if (!req.query.password) {
-      res.send({
+      console.log("HIT");
+      res.status(400).send({
         valid: false
       });
     }
-
+    else if(req.query.password.length > 0) {
     console.log('check login');
     db.collection('users')
       .findOne({
@@ -52,8 +53,11 @@ client.connect(err => {
       })
       .catch(e => {
         console.log(e);
-        res.send('Error', e);
+        res.status(400).send({
+          valid: false
+        });
       });
+    }
     redisClient.incr('/api/login', (err, updatedValue) => { });
   });
 
@@ -68,7 +72,8 @@ client.connect(err => {
             validEntry = false;
             console.log("User with same user and/or email already exists in DB.");
             res.send({
-              valid: validEntry
+              valid: validEntry,
+              status: "dup_entry"
           })
         }
 
@@ -80,25 +85,15 @@ client.connect(err => {
           role: req.body.role
       });
       res.send({
-        valid: validEntry
+        valid: validEntry,
+        role: req.body.role,
+        user: req.body.user,
+        email: req.body.email,
+        status: "OK"
     })
             redisClient.incr('/api/register', (err, updatedValue) => { });
     }
     })
-    // .then(() => {
-    //   if(validEntry) {
-    //     db.collection('users').insertOne({
-    //         user: req.body.user, 
-    //         email: req.body.email, 
-    //         password: req.body.password,
-    //         role: req.body.role
-    //     });
-    //   }
-    // });
-  
-
-
-
   });
 
   app.listen(port, () => console.log(`Example app listening on port ${port}!`));

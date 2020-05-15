@@ -56,9 +56,9 @@ export const register = () => (dispatch, getState) => {
       user: getState().userReducer.user,
       password: getState().userReducer.password,
       email: getState().userReducer.email,
-      role: getState().userReducer.role
+      role: getState().userReducer.role,
     })
-  })//.then(res => console.log(res))
+  })
   .then(res => res.json())
   .then(data => {
     if (data.valid) {
@@ -67,6 +67,9 @@ export const register = () => (dispatch, getState) => {
       dispatch(setUser(data.user));
       dispatch(setRole(data.role));
       dispatch(setIsLoggedIn(true));
+    }
+    else if(data.status == "dup_entry") {
+      dispatch(setRole("register_duplicate"));  
     }
   }).catch(console.log);
 };
