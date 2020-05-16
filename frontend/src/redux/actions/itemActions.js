@@ -28,7 +28,7 @@ export const getItems = items => ({
     items,
 });
 
-export const postItemToDB = () => (getState) => {
+export const postItemToDB = () => (dispatch, getState) => {
     const url = `http://localhost:4001/api/postItem`;
     console.log(getState().itemReducer.name);
     console.log(getState().itemReducer.description);
