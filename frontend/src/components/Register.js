@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {setEmail, setUser, setPassword, setRole, register} from '../redux/actions/userActions';
 import {Redirect} from 'react-router-dom';
 
-const Register = ({isLoggedIn, dispatch, user, role, password, email}) => {
+const Register = ({isLoggedIn, dispatch, role}) => {
     const [failedRegister, setFailedRegister] = useState(false);
     const [registerDup, setRegisterDup] = useState(false);
 

@@ -1,10 +1,16 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
+import {setName, setPrice, setDescription, postItemToDB} from '../redux/actions/itemActions';
 
 const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
     const [showSoldItems, toggleShowSoldItems] = useState(false);
     const [showListedItems, toggleShowListedItems] = useState(false);
     const [showPostForm, toggleShowPostForm] = useState(true);
+
+    const attemptPost = (event) => {
+        event.preventDefault();
+        dispatch(postItemToDB());
+    }
 
     return (
         <div className="mt-4">
@@ -70,22 +76,22 @@ const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
                                     <br /><h3 className="text-left pb-3 mt-3"><em>Post an item to the 9.5 Exchange's Catalog</em></h3>
                                     <div className="pb-2 col-md-10">
                                         <label className="float-left">Item Name</label>
-                                        <input type="text" className="form-control mb-2" placeholder=" enter item name" onChange={() => {}}/>
+                                        <input type="text" className="form-control mb-2" placeholder=" enter item name" onChange={e=> dispatch(setName(e.target.value))}/>
                                     </div>
                                     <div className="pb-2 col-md-10">
                                         <label className="float-left">Description</label>
-                                        <textarea className="form-control" placeholder="enter item description" rows="5" onChange={() => {}}/>
+                                        <textarea className="form-control" placeholder="enter item description" rows="5" onChange={e=> dispatch(setDescription(e.target.value))}/>
                                     </div>
                                     <div className="pb-2 col-md-4">
                                         <label className="float-left">Price</label>
-                                        <input type="text" className="form-control" placeholder="" onChange={() => {}}/>
+                                        <input type="text" className="form-control" placeholder="" onChange={e=> dispatch(setPrice(e.target.value))}/>
                                     </div>
 
                                     <div className="text-left col-md-2 mt-2">
                                         <button 
-                                            onClick={() => {}}
+                                            onClick={(e) => {attemptPost(e)}}
                                             className="btn btn-primary mb-2">
-                                            Sell!
+                                            Post!
                                         </button>
                                     </div>                   
                                 </div>
@@ -103,10 +109,12 @@ const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
 
 const mapStateToProps = state => ({
     user: state.userReducer.user,
-    //password: state.userReducer.password,
     isLoggedIn: state.userReducer.isLoggedIn,
     role: state.userReducer.role,
     items: state.itemReducer.items,
+    name: state.itemReducer.name, 
+    price: state.itemReducer.price,
+    description: state.itemReducer.description,
 });
 
 export default connect(mapStateToProps)(Seller);

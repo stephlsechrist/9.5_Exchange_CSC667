@@ -26,10 +26,14 @@ var item3Test = {
 }
 
 const DEFAULT_STATE = {
+    name: "",
+    desription: "",
+    price: -1,
+    seller: "",
     item : {
         name: "",
         description: "",
-        price: 0,
+        price: -1,
         seller: "",
         numTimeSold: 1,
         purchasers: [],
@@ -43,6 +47,21 @@ switch (action.type) {
         return {
             ...state,
             items: action.item,
+        }
+    case 'ITEM_SET_NAME':
+        return {
+            ...state,
+            items: action.name,
+        }
+    case 'ITEM_SET_DESCRIPTION':
+        return {
+            ...state,
+            items: action.description,
+        }
+    case 'ITEM_SET_PRICE':
+        return {
+            ...state,
+            items: action.price,
         }
     case 'ITEM_ADD_ITEMS': 
         return { 

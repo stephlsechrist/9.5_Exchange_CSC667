@@ -31,12 +31,34 @@ client.connect(err => {
    
     app.get('/api/populateItems', (req, res) => {
         console.log("itemList fetched");
-        
+
         db.collection('items').find({}).toArray((err, doc) => {     
             res.send({
                 items: doc
             })
         })
+    });
+
+    app.post('/api/postItem', (req, res) => {
+        console.log("Item has been sent to post api");
+        console.log(req.body);
+        var validEntry = (req.body.name !== '') && (req.body.description !== '') && (req.body.price !== -1);
+        if (validEntry)
+          console.log("ALL VALUES ENTERED");
+    
+        if(validEntry) {
+            db.collection('items').insertOne({
+                name: req.body.name, 
+                description: req.body.description, 
+                price: req.body.price,
+                seller: req.body.seller,
+                numTimeSold: 0,
+                purchasers: []
+            });
+            res.send({
+                valid: validEntry,
+            })
+        }
     });
 
     app.listen(port, () => console.log(`Inventory service listening on port ${port}!`));
