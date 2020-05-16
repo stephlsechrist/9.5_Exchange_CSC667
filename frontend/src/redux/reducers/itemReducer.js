@@ -51,17 +51,17 @@ switch (action.type) {
     case 'ITEM_SET_NAME':
         return {
             ...state,
-            items: action.name,
+            name: action.name,
         }
     case 'ITEM_SET_DESCRIPTION':
         return {
             ...state,
-            items: action.description,
+            description: action.description,
         }
     case 'ITEM_SET_PRICE':
         return {
             ...state,
-            items: action.price,
+            price: action.price,
         }
     case 'ITEM_ADD_ITEMS': 
         return { 
