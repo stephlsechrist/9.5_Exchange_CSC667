@@ -2,16 +2,16 @@ const express = require('express');
 const { MongoClient, ObjectID } = require('mongodb');
 const app = express();
 const port = 4000;
-const cors = require('cors');
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const redis = require('redis');
 const redisClient = redis.createClient();
-
+app.use(cors());
 app.use(bodyParser.urlencoded({
   extended: false,
 }));
 app.use(bodyParser.json());
-app.use(cors());
+
 
 // Connection URL
 const url = 'mongodb://localhost:27017';
@@ -27,7 +27,7 @@ client.connect(err => {
     process.exit(1);
   }
 
-  console.log('Connected successfully to server');
+  console.log('Connected successfully to auth server');
   const db = client.db(dbName);
 
   app.get('/api/login', (req, res) => {
@@ -96,5 +96,5 @@ client.connect(err => {
     })
   });
 
-  app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+  app.listen(port, () => console.log(`Auth service listening on port ${port}!`));
 });

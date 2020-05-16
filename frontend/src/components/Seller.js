@@ -10,8 +10,7 @@ const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
         <div className="mt-4">
             {isLoggedIn && role == "seller" && (
                 <div className="parent-container d-flex">
-                    <div className="container">
-                        <div classname="row">
+                    <div className="container">                  
                             <div className="display-4 ">Welcome {user}</div>
 
                             <div className="">
@@ -62,13 +61,10 @@ const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
                                     );
                                 }))}
                             </div>
-                        </div>
                     </div>
 
                     <div className="container mt-5">
-                        <div classname="row">
-                            {showPostForm && (
-                               
+                            {showPostForm && (                   
                                 <div className="card bg-light col-md-8">       
                                     <br /><br /><br />              
                                     <br /><h3 className="text-left pb-3 mt-3"><em>Post an item to the 9.5 Exchange's Catalog</em></h3>
@@ -82,7 +78,7 @@ const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
                                     </div>
                                     <div className="pb-2 col-md-4">
                                         <label className="float-left">Price</label>
-                                        <input type="text" className="form-control" placeholder=" enter item price" onChange={() => {}}/>
+                                        <input type="text" className="form-control" placeholder="" onChange={() => {}}/>
                                     </div>
 
                                     <div className="text-left col-md-2 mt-2">
@@ -95,7 +91,7 @@ const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
                                 </div>
                             
                             )}
-                        </div>
+                        
                     </div>
                 </div>
             )}
