@@ -1,14 +1,13 @@
-import React, {useEffect} from 'react';
-import Item from './Item.js';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {populateItems} from '../redux/actions/itemActions';
-import { setIsLoggedIn } from '../redux/actions/userActions.js';
+import {NavLink} from 'react-router-dom';
 
 const ItemList = ({items, isLoggedIn, dispatch}) => {
     useEffect(() => {   
         dispatch(populateItems());
     }, []);
-    
+
     return (
         <div className="pt-5 container">
             <p className="display-4">Currently posted on the Exchange</p><hr></hr><br />
@@ -25,15 +24,16 @@ const ItemList = ({items, isLoggedIn, dispatch}) => {
                                     <hr/>
                                     <p className="card-text">Seller: {item.seller}</p>
                                     {isLoggedIn && (
-                                        <button className="btn btn-secondary mt-2 mb-2" onClick={() => {/*call some function triggering backend service here, update items state for that item*/}}>
-                                                Purchase Item
-                                        </button>
+                                        <div>
+                                            <NavLink className="btn btn-secondary" to={{pathname:`/item`, search: `?id=${item._id}`}} >View Item</NavLink>
+                                        </div>
                                     )}
                                 </div>
                             </div>
                         </div>
                     );
                 })}
+
             </div>
         
         </div>

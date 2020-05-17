@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
-import {connect} from 'react-redux'
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import {setName, setPrice, setDescription, postItemToDB} from '../redux/actions/itemActions';
 
-const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
+const Seller = ({isLoggedIn, dispatch, role, user, items, name}) => {
     const [showSoldItems, toggleShowSoldItems] = useState(false);
     const [showListedItems, toggleShowListedItems] = useState(false);
     const [showPostForm, toggleShowPostForm] = useState(true);
@@ -78,6 +78,7 @@ const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
                                         <label className="float-left">Item Name</label>
                                         <input type="text" className="form-control mb-2" placeholder=" enter item name" onChange={e=> dispatch(setName(e.target.value))}/>
                                     </div>
+                                    
                                     <div className="pb-2 col-md-10">
                                         <label className="float-left">Description</label>
                                         <textarea className="form-control" placeholder="enter item description" rows="5" onChange={e=> dispatch(setDescription(e.target.value))}/>
@@ -93,9 +94,9 @@ const Seller = ({isLoggedIn, dispatch, role, user, items}) => {
                                             className="btn btn-primary mb-2">
                                             Post!
                                         </button>
-                                    </div>                   
+                                    </div>             <h1>NAME IS {name}</h1>             
                                 </div>
-                            
+                        
                             )}
                         
                     </div>

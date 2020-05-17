@@ -11,6 +11,8 @@ import Register from './components/Register.js';
 import Buyer from './components/Buyer.js';
 import Seller from './components/Seller.js';
 import NotFound from './components/NotFound.js';
+import Logout from './components/Logout.js';
+
 
 const App = ({items}) => {
     return (
@@ -23,6 +25,7 @@ const App = ({items}) => {
                 <Route exact path="/item" component={() => <Item itemsState={items} />} />
                 <Route exact path="/user/buyer" component={Buyer} />
                 <Route exact path="/user/seller" component={Seller} />
+                <Route exact path="/logout" component={Logout} />
                 <Route path="*" component={NotFound} />
             </Switch>
         </div>
