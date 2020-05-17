@@ -30,20 +30,18 @@ export const getItems = items => ({
 
 export const postItemToDB = () => (dispatch, getState) => {
     const url = `http://localhost:4001/api/postItem`;
-    console.log(getState().itemReducer.name);
-    console.log(getState().itemReducer.description);
 
     fetch(url, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-      body: JSON.stringify({
-        name: getState().itemReducer.name,
-        description: getState().itemReducer.description,
-        price: getState().itemReducer.price,
-        seller: getState().userReducer.user,
-      })
+          body: JSON.stringify({
+            name: getState().itemReducer.name,
+            description: getState().itemReducer.description,
+            price: getState().itemReducer.price,
+            seller: getState().userReducer.user,
+          })
     })
     .then(res => res.json())
     .then(data => {
@@ -65,4 +63,30 @@ export const populateItems = () => (dispatch, getState) => {
         dispatch(getItems(data.items));
       })
       .catch(console.log);
+}
+
+export const purchaseItem = (itemID, itemName, itemPrice, itemDescription, itemSeller) => (dispatch, getState) => {
+  const url = `http://localhost:4002/api/transaction`;
+  //console.log("USER" + getState().userReducer.user)
+  
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      id: itemID,
+      name: itemName,
+      price: itemPrice,
+      description: itemDescription,
+      seller: itemSeller,
+      //buyer: getState().userReducer.user
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.valid) {
+        //add code to show success or failure
+    }
+  }).catch(console.log);
 }
