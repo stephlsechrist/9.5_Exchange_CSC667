@@ -10,7 +10,7 @@ import Cart from './components/Cart.js';
 import Register from './components/Register.js';
 import Buyer from './components/Buyer.js';
 import Seller from './components/Seller.js';
-import NotFound from './components/NotFound.js';
+import NotFound from './components/notFound.js';
 import Logout from './components/Logout.js';
 
 
