@@ -52,15 +52,37 @@ export const postItemToDB = () => (dispatch, getState) => {
 };
 
 export const populateItems = () => (dispatch, getState) => {
+  console.log('33333333333333333333333');
     const url = `http://localhost:4001/api/populateItems`;
-
     fetch(url)
       //.then(res => console.log(res))
       .then(res => res.json())
       .then(data => {
-        console.log(data.items);
-
-        dispatch(getItems(data.items));
+        console.log(data);
+        var rdata = data.items['items'];
+        var cdata = data.items['cuitems'];
+        var  rows = [];
+        for(var i = 0 ; i < rdata.length ; i++){
+          var row = {};
+          row['description'] = rdata[i]['description'];
+          row['name'] = rdata[i]['name'];
+          row['numTimeSold'] = rdata[i]['numTimeSold'];
+          row['price'] = rdata[i]['price'];
+          row['purchasers'] = rdata[i]['purchasers'];
+          row['seller'] = rdata[i]['seller'];
+          row['_id'] = rdata[i]['_id'];
+          row['count'] = 0;
+          for(var j = 0 ; j < cdata.length ; j++)
+          {
+            if(rdata[i]['_id'] == cdata[j]['id'])
+            {
+              row['count'] = cdata[j]['count'];
+            }
+          }
+          rows.push(row);
+        }
+        console.log(rows);
+        dispatch(getItems(rows));
       })
       .catch(console.log);
 }
