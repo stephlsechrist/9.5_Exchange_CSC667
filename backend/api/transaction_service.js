@@ -30,13 +30,24 @@ client.connect(err => {
     const db = client.db(dbName);
    
     app.get('/api/transcation', (req, res) => {
-
-        // db.collection('transactions').find({}).toArray((err, doc) => {     
-        //     res.send({
-        //         items: doc
-        //     })
-        // })
-    });
-
+        db.collection('transactions').insertOne({
+            id: req.body.id,
+            timeOfPurchase: Date.now(),
+            //buyer: req.body.buyer,
+            seller: req.body.seller,
+            price: req.body.price,
+            description: req.body.description
+        })
+        .then(
+            res.send({
+                valid: true
+            })
+        )
+        .catch(
+            res.send({
+                valid: false
+            }))
+    })
+        
     app.listen(port, () => console.log(`Inventory service listening on port ${port}!`));
 });
