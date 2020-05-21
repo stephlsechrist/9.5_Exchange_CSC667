@@ -11,7 +11,6 @@ const Buyer = ({isLoggedIn, dispatch, role, user, items}) => {
             {isLoggedIn && role == "buyer" && (
                 <div>
                     <div className="display-4">Welcome {user}</div>
-
     
                     <button className="btn btn-primary mt-4 mb-4" onClick={() => {toggleShowHistory(!showHistory); toggleShowCatalog(!showCatalog);}}>
                         Toggle Purchase History

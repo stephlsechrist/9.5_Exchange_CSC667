@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "gateway.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,6 +14,8 @@
     "express": "^4.17.1",
     "http-proxy": "^1.18.0",
     "mongodb": "^3.5.7",
-    "redis": "^3.0.2"
+    "node": "^14.2.0",
+    "redis": "^3.0.2",
+    "socket.io": "^2.3.0"
   }
 }

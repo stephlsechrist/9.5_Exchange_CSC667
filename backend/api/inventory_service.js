@@ -36,9 +36,14 @@ client.connect(err => {
         console.log("itemList fetched");
 
         db.collection('items').find({}).toArray((err, doc) => {
-            res.send({
-                items: doc
-            })
+            db.collection('current_items').find({}).toArray((err1, doc1) => {
+                var aa = {};
+                aa['items'] = doc;
+                aa['cuitems'] = doc1;
+                res.send({
+                    items: aa
+                })
+            });
         })
     });
 
@@ -47,10 +52,50 @@ client.connect(err => {
         redisClient.publish('pageCounter', `Item has been visited`); //publishes a message to a channel
         redisClient.incr(req.query.itemId, (err, updatedValue) => { //redish take care of sync and return vlaue
             if (err) console.log(err);
-            res.json({visit:updatedValue}) 
-            //res.send(`Hello from instance: ${req.query.itemId}, ${updatedValue} Visits!!!`);
+            res.json({ visit : updatedValue});
         });
     });
+
+    app.get('/api/findviewItem', (req, res) => {
+            db.collection('current_items').findOne({ id: req.query.itemId}).then(doc => {
+                if(doc == null){
+                     db.collection('current_items').insertOne({
+                        id: req.query.itemId,
+                        count: '1',
+                    });
+                }else{
+                    var c1 = parseInt(doc['count']);
+                    c1--;
+                    if(c1 < 0){
+                        c1 = 0;
+                    }
+                    db.collection('current_items').update({ id : doc['id'] },{ count : c1,id : doc['id'] });
+                }
+            })
+            .catch(e => {
+            }); 
+            res.send(true);
+            //res.send(`Hello from instance: ${req.query.itemId}, ${updatedValue} Visits!!!`);
+    });
+
+    app.get('/api/findviewItem_', (req, res) => {
+       db.collection('current_items').findOne({ id: req.query.itemId}).then(doc => {
+                if(doc == null){
+                     db.collection('current_items').insertOne({
+                        id: req.query.itemId,
+                        count: '1',
+                    });
+                }else{
+                    var c1 = parseInt(doc['count']);
+                    c1++;
+                    db.collection('current_items').update({ id : doc['id'] },{ count : c1,id : doc['id'] });
+                }
+            })
+            .catch(e => {
+            }); 
+            res.send(true);
+        //res.send(`Hello from instance: ${req.query.itemId}, ${updatedValue} Visits!!!`);
+});
 
     app.post('/api/postItem', (req, res) => {
         console.log("Item has been sent to post api");
