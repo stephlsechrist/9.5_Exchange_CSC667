@@ -3,7 +3,8 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import io from 'socket.io-client'
 import $ from "jquery";
-import {populateItems} from '../redux/actions/itemActions';
+import {populateItems, purchaseItem} from '../redux/actions/itemActions';
+
 
 var count = 0;
 var id = null;
@@ -56,8 +57,6 @@ class Item extends Component {
     componentWillUnmount() {
         console.log("unmounting");
         var obj = {};
-        // this.setState({visit: response.data.visit})	;
-        // obj.visit = response.data.visit;
         obj.id = id;
         obj.userid =this.props.userid;
         this.socket.emit("visitdel", obj);
@@ -65,25 +64,30 @@ class Item extends Component {
         console.log(this.state.item._id);
 
         populateItems();
-        // axios.get(`http://localhost:4001/api/newviewItem?itemId=${this.state.item._id}`)
-        //     .then(response => {
-        //         console.log(response.data);
-        //     })
-        //     .catch(err => {
-        //         console.log("Error")
-        // });
     }
 
     render() {
         return (
-            <div className="card bg-light mt-5 col-md-4 offset-md-4">
-                <div className="card-header border h4">Page for a item with id ({this.state.item._id}) reached</div>
-                <div className="card-body">
-                    <div className="card-title h3">Name of item: {this.state.item.name}</div><hr/>
-                    <p className="card-text h4">Price: ${this.state.item.price}</p>
-                    <p className="card-text h4">Description: {this.state.item.description}</p>
-                    <p className="card-text h4">Seller: {this.state.item.seller}</p>
-                    {/* <p>Total visits {this.state.visit}</p> */}
+            <div>
+                <div className="card  bg-light mt-5  offset-lg-4" style={{maxWidth: '50rem' }}>
+                    <div className="card-header display-4">Item: {this.state.item.name}</div>
+                    <div className="card-body">
+                        <div className="card-title h4">Posted by {this.state.item.seller} for ${this.state.item.price}</div><hr/>
+                        <p className="card-text h4"><i>Description</i></p>
+                        <p>{this.state.item.description}</p>
+                        <hr />
+
+                        {<p>Total visits {this.state.visit}</p>}
+                    </div>
+                    <div className="mt-3">
+                {this.props.loginState && this.props.userRole=="buyer" && ( 
+                    <button className="btn btn-primary mb-3" onClick={purchaseItem(this.state.item._id, this.state.item.name, 
+                        this.state.item.price, this.state.item.description, this.state.item.seller)}>
+                            Purchase Item
+                    </button>  
+                    
+                )}
+                </div>
                 </div>
             </div>
         )
