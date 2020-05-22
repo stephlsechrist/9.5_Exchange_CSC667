@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 //https://www.iconfinder.com/icons/3057646/creative_market_media_social_icon
 import siteImg from '../siteImg.png'
@@ -52,9 +52,7 @@ const Nav = ({isLoggedIn, role, dispatch}) => {
                     )}
                 </ul>
 
-                <Link to="/cart" className="ml-auto">
-                    <button className="btn btn-secondary">Cart</button>
-                </Link>
+                {/*<Link to="/cart" className="ml-auto"> <button className="btn btn-secondary">Cart</button></Link>*/}
             </div>
         )
 }
