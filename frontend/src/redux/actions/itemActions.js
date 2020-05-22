@@ -88,8 +88,7 @@ export const populateItems = () => (dispatch, getState) => {
 
 export const purchaseItem = (itemID, itemName, itemPrice, itemDescription, itemSeller, itemBuyer) => (dispatch, getState) => {
   const url = `http://localhost:4002/api/transaction`;
-  //console.log("USER" + getState().userReducer.user)
-  console.log("in purchaseItem")
+
   fetch(url, {
     method: "POST",
     headers: {

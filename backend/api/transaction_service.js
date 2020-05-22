@@ -33,6 +33,16 @@ client.connect(err => {
     const db = client.db(dbName);
    
     app.post('/api/transaction', (req, res) => {
+        db.collection('items')
+            .updateOne({
+                "_id": ObjectID(req.body.id)
+            },   
+            { 
+                $inc: {"numTimeSold": 1},
+                $push: {"purchasers": req.body.buyer}
+            }        
+        )
+       
         db.collection('transactions').insertOne({
             id: req.body.id,
             name: req.body.name,
@@ -42,6 +52,7 @@ client.connect(err => {
             price: req.body.price,
             description: req.body.description
         })
+        
         .then(
             res.send({
                 valid: true
