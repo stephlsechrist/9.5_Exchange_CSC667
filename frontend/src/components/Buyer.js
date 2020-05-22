@@ -17,6 +17,11 @@ const Buyer = ({isLoggedIn, role, user, items}) => {
                     </button>
             
                     <div className="justify-content-center pt-2" style={{display: 'flex', flexWrap: 'wrap'}}>
+                    {showHistory && items.every((item) => {
+                            return (item.purchasers.includes(user) == false);
+                        }) && (
+                        <h1>You haven't made any purchases yet, get shopping!</h1>
+                    )}
                     {showHistory && (items.map((item, key) => {
                         return (
                             <div>

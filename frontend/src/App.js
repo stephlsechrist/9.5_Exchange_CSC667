@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -15,9 +15,18 @@ import Logout from './components/Logout.js';
 
 
 const App = ({items, role, isLoggedIn}) => {
+    useEffect(() => {
+        setDisplayNotification(false);
+    }, [])
+
+    const [displayNotification, setDisplayNotification] = useState();
+
     return (
         <div className="App">
             <Nav />
+            {displayNotification && (
+            <div className="card text-white bg-success offset-md-4 col-md-3">test</div>
+        )}
             <Switch>
                 <Route exact path="/" component={ItemList} />
                 <Route path="/login" component={Login} />

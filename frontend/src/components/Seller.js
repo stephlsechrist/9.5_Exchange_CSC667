@@ -31,6 +31,11 @@ const Seller = ({isLoggedIn, dispatch, role, user, items, name}) => {
                    
                             {showSoldItems && (<div><h5 className ="mt-5">Sold Items</h5> <br/></div>)}
                             <div className="justify-content-center pt-2" style={{display: 'flex', flexWrap: 'wrap'}}>
+                                {showSoldItems && items.every((item) => {
+                                    return ((item.purchasers.length > 0 && item.seller == user) == false);
+                                        }) && (
+                                        <h1>There are no sold items to show.</h1>
+                                )}
                                 {showSoldItems && (items.map((item, key) => {
                                     return (
                                         <div>
@@ -48,8 +53,14 @@ const Seller = ({isLoggedIn, dispatch, role, user, items, name}) => {
                                     );
                                 }))}
                             </div>
+                            
                             {showListedItems && (<div><h5 className ="mt-5">Listed Items</h5> <br/></div>)}
                             <div className="justify-content-center pt-2" style={{display: 'flex', flexWrap: 'wrap'}}>
+                                {showListedItems && items.every((item) => {
+                                    return ((item.seller == user) == false);
+                                        }) && (
+                                        <h1>There are no listed items to show.</h1>
+                                )}
                                 {showListedItems && (items.map((item, key) => {
                                     return (
                                         <div>
@@ -94,15 +105,12 @@ const Seller = ({isLoggedIn, dispatch, role, user, items, name}) => {
                                             className="btn btn-primary mb-2">
                                             Post!
                                         </button>
-                                    </div>             <h1>NAME IS {name}</h1>             
+                                    </div>               
                                 </div>
-                        
-                            )}
-                        
+                            )}             
                     </div>
                 </div>
             )}
-             {/*<h5 className="mt-5">TEST: value of role is {role}</h5> <h5 className="mt-5">TEST: value of user is {user}</h5> */}
         </div>
     );
     
