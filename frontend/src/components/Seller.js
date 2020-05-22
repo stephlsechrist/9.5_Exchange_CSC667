@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setName, setPrice, setDescription, postItemToDB} from '../redux/actions/itemActions';
 
@@ -6,9 +7,11 @@ const Seller = ({isLoggedIn, dispatch, role, user, items, name}) => {
     const [showSoldItems, toggleShowSoldItems] = useState(false);
     const [showListedItems, toggleShowListedItems] = useState(false);
     const [showPostForm, toggleShowPostForm] = useState(true);
+    const [showFeedback, setShowFeedback] = useState(false);
 
     const attemptPost = (event) => {
         event.preventDefault();
+        setShowFeedback(true);
         dispatch(postItemToDB());
     }
 
@@ -105,7 +108,10 @@ const Seller = ({isLoggedIn, dispatch, role, user, items, name}) => {
                                             className="btn btn-primary mb-2">
                                             Post!
                                         </button>
-                                    </div>               
+                                    </div>     
+                                    {showFeedback && (
+                                        <Link to='/' className="nav-link text-white bg-success">Item Posted! Click here to return to the home page.</Link>
+                                    )}          
                                 </div>
                             )}             
                     </div>

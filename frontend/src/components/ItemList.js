@@ -35,6 +35,9 @@ const ItemList = ({items, isLoggedIn, dispatch, role, user}) => {
         <div className="pt-5 container">
             <p className="display-4">Currently posted on the Exchange</p><hr></hr><br />
             <div className="justify-content-center pt-2" style={{display: 'flex', flexWrap: 'wrap'}}>
+                {items.length < 1 && (
+                    <p>There aren't any items posted by sellers at this time. Please check again soon! </p>
+                )}
                 {items.map((item, key) => {
                     return (
                         <div key={key}>
@@ -64,7 +67,7 @@ const ItemList = ({items, isLoggedIn, dispatch, role, user}) => {
                                             <NavLink className="btn btn-secondary" to={{pathname:`/item`, search: `?id=${item._id}`}} >View Item</NavLink>
                                         </div>
                                     )}<br/>
-                                    <span className="text-center align-bottom">Viewing Item Page!&nbsp;&nbsp;</span>
+                                    <span className="text-center align-bottom">Currently viewing this page!&nbsp;&nbsp;</span>
                                 </div>
                             </div>
                         </div>

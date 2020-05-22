@@ -6,7 +6,6 @@ import Nav from './components/Nav.js';
 import ItemList from './components/ItemList.js'
 import Item from './components/Item.js';
 import Login from './components/Login.js';
-import Cart from './components/Cart.js';
 import Register from './components/Register.js';
 import Buyer from './components/Buyer.js';
 import Seller from './components/Seller.js';
