@@ -60,7 +60,6 @@ class Item extends Component {
         obj.id = id;
         obj.userid =this.props.userid;
         this.socket.emit("visitdel", obj);
-        console.log(1111);
         console.log(this.state.item._id);
 
         populateItems();
@@ -82,9 +81,10 @@ class Item extends Component {
                     <div className="mt-3">
                 {this.props.loginState && this.props.userRole=="buyer" && ( 
                     <button className="btn btn-primary mb-3" onClick={purchaseItem(this.state.item._id, this.state.item.name, 
-                        this.state.item.price, this.state.item.description, this.state.item.seller)}>
+                        this.state.item.price, this.state.item.description, this.state.item.seller, this.props.userid)}>
                             Purchase Item
-                    </button>  
+                    </button> 
+
                     
                 )}
                 </div>

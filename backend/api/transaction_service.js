@@ -29,11 +29,11 @@ client.connect(err => {
     console.log('Connected successfully to transaction server');
     const db = client.db(dbName);
    
-    app.get('/api/transcation', (req, res) => {
+    app.post('/api/transaction', (req, res) => {
         db.collection('transactions').insertOne({
             id: req.body.id,
             timeOfPurchase: Date.now(),
-            //buyer: req.body.buyer,
+            buyer: req.body.buyer,
             seller: req.body.seller,
             price: req.body.price,
             description: req.body.description
@@ -44,10 +44,9 @@ client.connect(err => {
             })
         )
         .catch(
-            res.send({
-                valid: false
-            }))
+            console.log
+        )
     })
         
-    app.listen(port, () => console.log(`Inventory service listening on port ${port}!`));
+    app.listen(port, () => console.log(`Transaction service listening on port ${port}!`));
 });

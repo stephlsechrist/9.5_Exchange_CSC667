@@ -9,7 +9,7 @@ import axios from 'axios';
 var count = 0;
 var socket = null;
 
-const ItemList = ({items, isLoggedIn, dispatch,role}) => {
+const ItemList = ({items, isLoggedIn, dispatch, role, user}) => {
     if(isLoggedIn == true) {
         count+=1;
 
@@ -80,7 +80,8 @@ const ItemList = ({items, isLoggedIn, dispatch,role}) => {
 const mapStateToProps = state => ({
     items: state.itemReducer.items,
     isLoggedIn: state.userReducer.isLoggedIn,
-    role : state.userReducer.role
+    role : state.userReducer.role,
+    user : state.userReducer.user
 });
 
 export default connect(mapStateToProps)(ItemList);
