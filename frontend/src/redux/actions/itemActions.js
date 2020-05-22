@@ -52,7 +52,6 @@ export const postItemToDB = () => (dispatch, getState) => {
 };
 
 export const populateItems = () => (dispatch, getState) => {
-  console.log('33333333333333333333333');
     const url = `http://localhost:4001/api/populateItems`;
     fetch(url)
       //.then(res => console.log(res))
@@ -87,10 +86,10 @@ export const populateItems = () => (dispatch, getState) => {
       .catch(console.log);
 }
 
-export const purchaseItem = (itemID, itemName, itemPrice, itemDescription, itemSeller) => (dispatch, getState) => {
+export const purchaseItem = (itemID, itemName, itemPrice, itemDescription, itemSeller, itemBuyer) => (dispatch, getState) => {
   const url = `http://localhost:4002/api/transaction`;
   //console.log("USER" + getState().userReducer.user)
-  
+  console.log("in purchaseItem")
   fetch(url, {
     method: "POST",
     headers: {
@@ -102,7 +101,7 @@ export const purchaseItem = (itemID, itemName, itemPrice, itemDescription, itemS
       price: itemPrice,
       description: itemDescription,
       seller: itemSeller,
-      //buyer: getState().userReducer.user
+      buyer: itemBuyer
     })
   })
   .then(res => res.json())
