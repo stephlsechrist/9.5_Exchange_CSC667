@@ -11,6 +11,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+const KafkaProducer = require('./KafkaProducer');
+const producer = new KafkaProducer('myTopic');
+
 // Connection URL
 const url = 'mongodb://localhost:27017';
 // Database Name
@@ -32,6 +35,7 @@ client.connect(err => {
     app.post('/api/transaction', (req, res) => {
         db.collection('transactions').insertOne({
             id: req.body.id,
+            name: req.body.name,
             timeOfPurchase: Date.now(),
             buyer: req.body.buyer,
             seller: req.body.seller,
@@ -46,7 +50,19 @@ client.connect(err => {
         .catch(
             console.log
         )
+        producer.send(JSON.stringify({
+            id: req.body.id,
+            name: req.body.name,
+            timeOfPurchase: Date.now(),
+            buyer: req.body.buyer,
+            seller: req.body.seller,
+            price: req.body.price,
+            description: req.body.description
+        }));
     })
         
-    app.listen(port, () => console.log(`Transaction service listening on port ${port}!`));
+    producer.connect(() => {
+        app.listen(port);
+    })
+    //app.listen(port, () => console.log(`Transaction service listening on port ${port}!`));
 });
