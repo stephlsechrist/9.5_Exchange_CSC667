@@ -1,14 +1,8 @@
 # TO RUN
 
-mongoDB and redis must be running
+mongoDB, docker, and redis must be running
 
-The MongoDB database for this applications is name FinalProject95
-
-* The following collections are needed in MongoDB:
-- items
-- transactions
-- users
-- current_items
+The MongoDB database for this applications is named FinalProject95
 
 * To test the various features of the application you will need to create both a buyer and a seller account 
   from the registration page.
@@ -22,6 +16,13 @@ in root folder, frontend, and backend:
 npm i
 ```
 
+run the following in backend/api
+```
+docker-compose pull
+docker swarm init
+docker stack deploy -c docker-compose.yml project-demo
+```
+
 in one terminal, run in root:
 ```
 npm run dev-server
@@ -30,4 +31,10 @@ npm run dev-server
 in second terminal, run in frontend:
 ```
 npm start
+```
+
+when finished, remove docker stack
+```
+docker stack remove project-demo
+docker swarm leave --force
 ```
