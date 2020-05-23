@@ -87,7 +87,7 @@ services:
       - "4000:4000"
     deploy:
       replicas: 1
-      restart_plicy: 
+      restart_policy: 
         condition: on-failure
     depends_on:
       - redis
