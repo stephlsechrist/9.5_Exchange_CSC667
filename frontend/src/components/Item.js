@@ -37,7 +37,6 @@ class Item extends Component {
                 // obj.visit = response.data.visit;
                 obj.id = id;
                 obj.userid =this.props.userid;
-                console.log(this.props.userid);
                 this.socket.emit("visitadd", obj);
 	        })
 	        .catch(err => {
@@ -54,19 +53,16 @@ class Item extends Component {
     }
 
     componentWillUnmount() {
-        console.log("unmounting");
         var obj = {};
         obj.id = id;
         obj.userid =this.props.userid;
         this.socket.emit("visitdel", obj);
-        console.log(this.state.item._id);
 
         populateItems();
     }
 
     handleSubmit(_id, name, price, description, seller, userid) {
         const { dispatch } = this.props;    
-        console.log(_id + name+ price)
         //e.preventDefault();
         dispatch(purchaseItem(_id, name, price, description, seller, userid))
         this.setState({purchaseFeedback: true})
