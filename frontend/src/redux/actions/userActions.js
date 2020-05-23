@@ -24,7 +24,6 @@ export const setLoadingState = loadingState => ({
 });
 
 export const login = () => (dispatch, getState) => {
-    console.log('Login function!')
     const user = getState().userReducer.user;
     const password = getState().userReducer.password;
     const url = `http://localhost:4000/api/login?user=${user}&password=${password}`;
@@ -33,8 +32,6 @@ export const login = () => (dispatch, getState) => {
       //.then(res => console.log(res))
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-
         if (data.valid) {
           dispatch(setEmail(data.email));
           dispatch(setRole(data.role));
