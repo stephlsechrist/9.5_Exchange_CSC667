@@ -1,9 +1,10 @@
 FROM node:10-alpine
 
 WORKDIR /main
-COPY ./frontend/public/ /main/public/
-COPY ./src/ /main/src/
-COPY ./package*.json/ /main/
+COPY ./frontend /main/frontend
+COPY ./frontend/public /main/frontend/public
+COPY ./frontend/src /main/frontend/src
+COPY ./package*.json /main/
 
 RUN npm install
 
