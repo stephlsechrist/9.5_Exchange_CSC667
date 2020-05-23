@@ -57,7 +57,6 @@ export const populateItems = () => (dispatch, getState) => {
       //.then(res => console.log(res))
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         var rdata = data.items['items'];
         var cdata = data.items['cuitems'];
         var  rows = [];
@@ -80,7 +79,6 @@ export const populateItems = () => (dispatch, getState) => {
           }
           rows.push(row);
         }
-        console.log(rows);
         dispatch(getItems(rows));
       })
       .catch(console.log);
