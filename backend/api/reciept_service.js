@@ -14,10 +14,12 @@ const KafkaConsumer = require('./KafkaConsumer');
 const consumer = new KafkaConsumer(['myTopic', 'myOtherTopic']);
 
 consumer.on('message', (message) => {
-  // console.log("request for email received", message);
-  var data = JSON.parse(message.value);
-  var emailText = "Here is your reciept from the 9.5 Exchange. You purchased " + data.name + " from " 
-   + data.seller + " for " + data.price + " ! Congratulations!       Item Description: " + data.description;
+
+  var data = JSON.parse(JSON.parse(message.value))
+  var cost = data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  var emailText = "Here is your reciept from the 9.5 Exchange.\n\nYou purchased " + data.name + " from " 
+   + data.seller + " for $" + cost + ".\n\nCongratulations!\n\nItem Description: " + data.description;
+
 
 
   const transporter = nodemailer.createTransport({
