@@ -1,3 +1,6 @@
+# 9.5 Exchange
+This is a group project for CSC667 in which we used Kafka, Docker, mongoDB, Redis, NodeJS, Bootstrap, and other technologies to create a full stack web application. It is a simple e-commerce application.
+
 # TO RUN
 
 mongoDB, docker, and redis must be running
